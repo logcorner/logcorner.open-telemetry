@@ -1,5 +1,4 @@
-﻿using System;
-using QueueFactory.Models.Interfaces;
+﻿using QueueFactory.Models.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;

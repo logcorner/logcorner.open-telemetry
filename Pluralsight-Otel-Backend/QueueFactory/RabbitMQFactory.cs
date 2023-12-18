@@ -1,6 +1,6 @@
-﻿using RabbitMQ.Client;
-using QueueFactory.Models;
+﻿using QueueFactory.Models;
 using QueueFactory.Models.Interfaces;
+using RabbitMQ.Client;
 
 namespace QueueFactory;
 

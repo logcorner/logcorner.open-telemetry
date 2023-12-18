@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using Basket.API.Services.Interfaces;
+﻿using Basket.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 using QueueFactory.Models;
 using QueueFactory.Models.Interfaces;
 using RabbitMQ.Client;
+using System.Diagnostics;
 using commonModels = Models;
 
 namespace Basket.API.Controllers
@@ -19,6 +19,7 @@ namespace Basket.API.Controllers
 
         //Important: The name of the Activity should be the same as the name of the Source added in the Web API startup AddOpenTelemetryTracing Builder
         private static readonly ActivitySource Activity = new("APITracing");
+
         private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
 
         public BasketController(ICatalogService catalogService, IBus bus)

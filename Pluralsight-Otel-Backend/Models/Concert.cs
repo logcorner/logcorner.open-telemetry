@@ -1,5 +1,3 @@
-using System;
-
 namespace Models
 {
     public class Concert
@@ -13,7 +11,7 @@ namespace Models
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public string Headliner { get; set; }
-        public List<string> Artists { get; set; } = new List<string>();        
+        public List<string> Artists { get; set; } = new List<string>();
         public decimal? Price { get; set; }
 
         public Concert(string id, string name, string description, string headliner)

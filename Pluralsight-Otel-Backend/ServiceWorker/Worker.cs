@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Hosting;
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 using QueueFactory;
@@ -11,16 +7,19 @@ using QueueFactory.Models.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using ServiceWorker.Services.Interfaces;
+using System.Diagnostics;
+using System.Text;
 
 namespace ServiceWorker
 {
-	public class Worker : BackgroundService
+    public class Worker : BackgroundService
     {
         private readonly IBus _bus;
         private readonly ICatalogService _catalogService;
 
         //Important: The name of the Activity should be the same as the name of the Source added in the Web API startup AddOpenTelemetryTracing Builder
         private static readonly ActivitySource Activity = new("APITracing");
+
         private static readonly TextMapPropagator Propagator = new TraceContextPropagator();
 
         public Worker(ICatalogService catalogService)
@@ -47,7 +46,7 @@ namespace ServiceWorker
                 AddActivityTags(activity);
 
                 List<Task> tasks = new List<Task>();
-                foreach(var concertId in message?.Basket?.ConcertIds)
+                foreach (var concertId in message?.Basket?.ConcertIds)
                 {
                     tasks.Add(Task.Run(() => _catalogService.GetConcert(concertId)));
                 }
@@ -83,4 +82,3 @@ namespace ServiceWorker
         }
     }
 }
-

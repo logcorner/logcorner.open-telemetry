@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
-using Basket.API.Services.Interfaces;
+﻿using Basket.API.Services.Interfaces;
 using Models;
+using System.Text.Json;
 
 namespace Basket.API.Services
 {

@@ -24,6 +24,7 @@ public class Program
         builder.Services.AddHealthChecks();
 
         #region Serilog
+
         builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
             .ReadFrom.Configuration(hostingContext.Configuration)
             .WriteTo.OpenTelemetry(options =>
@@ -35,11 +36,13 @@ public class Program
                     ["service.name"] = Configuration.GetValue<string>("Otlp:ServiceName")
                 };
             }));
-        #endregion
+
+        #endregion Serilog
 
         builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
         #region OpenTelemetry
+
         Action<ResourceBuilder> appResourceBuilder =
             resource => resource
                 .AddTelemetrySdk()
@@ -58,17 +61,20 @@ public class Program
                 .AddRuntimeInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint"))));
-        #endregion
+
+        #endregion OpenTelemetry
 
         var app = builder.Build();
 
         #region Swagger
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        #endregion
+
+        #endregion Swagger
 
         //app.UseHttpsRedirection();
         app.UseRouting();

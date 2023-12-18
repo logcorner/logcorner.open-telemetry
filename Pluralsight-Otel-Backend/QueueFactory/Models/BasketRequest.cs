@@ -2,8 +2,8 @@
 
 namespace QueueFactory.Models
 {
-	public class BasketRequest
-	{
-		public Basket Basket { get; set; }
-	}
+    public class BasketRequest
+    {
+        public Basket Basket { get; set; }
+    }
 }

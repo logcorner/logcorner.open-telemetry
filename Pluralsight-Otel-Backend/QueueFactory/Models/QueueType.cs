@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QueueFactory.Models;
+﻿namespace QueueFactory.Models;
 
 public class QueueType
 {
