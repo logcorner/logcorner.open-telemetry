@@ -1,17 +1,17 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{34980454-684A-4B2E-BBF8-13162E4923C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{34980454-684A-4B2E-BBF8-13162E4923C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Basket.API\Basket.API.csproj", "{50CEA942-BD40-4E62-91DC-91ACEDC749EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "Basket.API\Basket.API.csproj", "{50CEA942-BD40-4E62-91DC-91ACEDC749EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{1D26C95B-055F-4E9F-8A65-B6694BE6D253}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{1D26C95B-055F-4E9F-8A65-B6694BE6D253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueFactory", "QueueFactory\QueueFactory.csproj", "{F6088304-BA7D-4F9C-B2FC-33A9092EEDE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueFactory", "QueueFactory\QueueFactory.csproj", "{F6088304-BA7D-4F9C-B2FC-33A9092EEDE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWorker", "ServiceWorker\ServiceWorker.csproj", "{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWorker", "ServiceWorker\ServiceWorker.csproj", "{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,7 +30,7 @@ public class Program
             .WriteTo.OpenTelemetry(options =>
             {
                 options.Endpoint = $"{Configuration.GetValue<string>("Otlp:Endpoint")}/v1/logs";
-                options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.GrpcProtobuf;
+                options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.Grpc;
                 options.ResourceAttributes = new Dictionary<string, object>
                 {
                     ["service.name"] = Configuration.GetValue<string>("Otlp:ServiceName")
