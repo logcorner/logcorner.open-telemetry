@@ -6,10 +6,14 @@
     <UserSecretsId>bc3cd8c0-a0d2-44f9-a231-2d3658ab1e2a</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="OpenTelemetryConfiguration.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="OpenTelemetry" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0" />
+	     <PackageReference Include="OpenTelemetry.Exporter.Zipkin" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.7.0" />
@@ -41,5 +45,6 @@
       <GlobalPropertiesToRemove>
       </GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\TelemetryLib\TelemetryLib.csproj" />
   </ItemGroup>
 </Project>

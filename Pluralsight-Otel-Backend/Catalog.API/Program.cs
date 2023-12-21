@@ -1,10 +1,9 @@
 ﻿using Catalog.API.Extensions;
 using Catalog.API.Models;
+using LogCorner.EduSync.Speech.Telemetry.Configuration;
+
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Serilog;
 
 namespace Catalog.API;
@@ -25,17 +24,18 @@ public class Program
 
         #region Serilog
 
-        builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
-            .ReadFrom.Configuration(hostingContext.Configuration)
-            .WriteTo.OpenTelemetry(options =>
-            {
-                options.Endpoint = $"{Configuration.GetValue<string>("Otlp:Endpoint")}/v1/logs";
-                options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.Grpc;
-                options.ResourceAttributes = new Dictionary<string, object>
-                {
-                    ["service.name"] = Configuration.GetValue<string>("Otlp:ServiceName")
-                };
-            }));
+        builder.UseSerilog(Configuration);
+        //builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+        //    .ReadFrom.Configuration(hostingContext.Configuration)
+        //    .WriteTo.OpenTelemetry(options =>
+        //    {
+        //        options.Endpoint = $"{Configuration.GetValue<string>("Otlp:Endpoint")}/v1/logs";
+        //        options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.Grpc;
+        //        options.ResourceAttributes = new Dictionary<string, object>
+        //        {
+        //            ["service.name"] = Configuration.GetValue<string>("Otlp:ServiceName")
+        //        };
+        //    }));
 
         #endregion Serilog
 
@@ -43,24 +43,33 @@ public class Program
 
         #region OpenTelemetry
 
-        Action<ResourceBuilder> appResourceBuilder =
-            resource => resource
-                .AddTelemetrySdk()
-                .AddService(Configuration.GetValue<string>("Otlp:ServiceName"));
+        builder.AddOpenTelemetry(Configuration);
+        //Action<ResourceBuilder> appResourceBuilder =
+        //    resource => resource
+        //        .AddTelemetrySdk()
+        //        .AddService(Configuration.GetValue<string>("Otlp:ServiceName"));
 
-        builder.Services.AddOpenTelemetry()
-            .ConfigureResource(appResourceBuilder)
-            .WithTracing(builder => builder
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddSource("APITracing")
-                //.AddConsoleExporter()
-                .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
-            )
-            .WithMetrics(builder => builder
-                .AddRuntimeInstrumentation()
-                .AddAspNetCoreInstrumentation()
-                .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint"))));
+        //builder.Services.AddOpenTelemetry()
+        //    .ConfigureResource(appResourceBuilder)
+        //    .WithTracing(builder => builder
+        //        .AddAspNetCoreInstrumentation()
+        //        .AddHttpClientInstrumentation()
+        //        .AddSource("APITracing")
+        //        //.AddConsoleExporter()
+        //        .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
+        //         .AddZipkinExporter(b =>
+        //         {
+        //             var zipkinHostName = Configuration["Zipkin:Hostname"];
+        //             var zipkinPort = Configuration["Zipkin:PortNumber"];
+
+        //             var endpoint = new Uri($"http://{zipkinHostName}:{zipkinPort}/api/v2/spans");
+        //             b.Endpoint = endpoint;
+        //         })
+        //    )
+        //    .WithMetrics(builder => builder
+        //        .AddRuntimeInstrumentation()
+        //        .AddAspNetCoreInstrumentation()
+        //        .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint"))));
 
         #endregion OpenTelemetry
 

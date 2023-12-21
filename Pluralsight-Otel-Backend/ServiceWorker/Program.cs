@@ -52,6 +52,22 @@ namespace ServiceWorker
                             .AddSource("APITracing")
                             //.AddConsoleExporter()
                             .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
+                             .AddZipkinExporter(b =>
+                             {
+                                 var zipkinHostName = Configuration["Zipkin:Hostname"];
+                                 var zipkinPort = Configuration["Zipkin:PortNumber"];
+
+                                 var endpoint = new Uri($"http://{zipkinHostName}:{zipkinPort}/api/v2/spans");
+                                 b.Endpoint = endpoint;
+                             })
+                        //.AddJaegerExporter(o =>
+                        //{
+                        //    var jaergerHostName = Configuration["Jaeger:Hostname"];
+                        //    var jaergerPort = Configuration["Jaeger:PortNumber"];
+                        //    o.AgentHost = jaergerHostName;
+                        //    o.AgentPort = int.Parse(jaergerPort);
+                        //    o.ExportProcessorType = ExportProcessorType.Simple;
+                        //})
                         );
 
                     services.AddHttpClient<ICatalogService, CatalogService>();

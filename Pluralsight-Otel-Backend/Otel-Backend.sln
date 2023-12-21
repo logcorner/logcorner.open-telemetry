@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1703.6
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{34980454-684A-4B2E-BBF8-13162E4923C3}"
 EndProject
@@ -12,6 +11,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueueFactory", "QueueFactory\QueueFactory.csproj", "{F6088304-BA7D-4F9C-B2FC-33A9092EEDE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceWorker", "ServiceWorker\ServiceWorker.csproj", "{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelemetryLib", "TelemetryLib\TelemetryLib.csproj", "{2770DCA9-AE5F-441C-8AC6-338B97A86C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +40,10 @@ Global
 		{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3FD16FA-2DC8-426E-9A65-8EE2C7031552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2770DCA9-AE5F-441C-8AC6-338B97A86C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2770DCA9-AE5F-441C-8AC6-338B97A86C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2770DCA9-AE5F-441C-8AC6-338B97A86C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2770DCA9-AE5F-441C-8AC6-338B97A86C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

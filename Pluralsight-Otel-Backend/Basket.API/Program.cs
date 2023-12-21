@@ -2,11 +2,9 @@
 using Basket.API.Models;
 using Basket.API.Services;
 using Basket.API.Services.Interfaces;
+using LogCorner.EduSync.Speech.Telemetry.Configuration;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using QueueFactory;
 using QueueFactory.Models;
 using Serilog;
@@ -29,42 +27,15 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddHealthChecks();
 
-        builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
-            .ReadFrom.Configuration(hostingContext.Configuration)
-            .WriteTo.OpenTelemetry(options =>
-            {
-                options.Endpoint = $"{Configuration.GetValue<string>("Otlp:Endpoint")}/v1/logs";
-                options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.Grpc;
-                options.ResourceAttributes = new Dictionary<string, object>
-                {
-                    ["service.name"] = Configuration.GetValue<string>("Otlp:ServiceName")
-                };
-            }));
-
+        builder.UseSerilog(Configuration);
         builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
         builder.Services.AddHttpClient<ICatalogService, CatalogService>();
         builder.Services.AddSingleton(sp => RabbitMQFactory.CreateBus(BusType.LocalHost));
 
-        Action<ResourceBuilder> appResourceBuilder =
-            resource => resource
-                .AddTelemetrySdk()
-                .AddService(Configuration.GetValue<string>("Otlp:ServiceName"));
+        //Action<ResourceBuilder> appResourceBuilder = AddTelemetrySdk();
 
-        builder.Services.AddOpenTelemetry()
-            .ConfigureResource(appResourceBuilder)
-            .WithTracing(builder => builder
-                .AddAspNetCoreInstrumentation()
-                .AddHttpClientInstrumentation()
-                .AddSource("APITracing")
-                //.AddConsoleExporter()
-                .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
-            )
-            .WithMetrics(builder => builder
-                .AddRuntimeInstrumentation()
-                .AddAspNetCoreInstrumentation()
-                .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint"))));
-
+        builder.AddOpenTelemetry(Configuration);
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
